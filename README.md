@@ -10,6 +10,7 @@ The idea of this program is to take an mp3 file e.g a music 'mix' downloaded fro
 3. [Documentation](#documentation)
 4. [Usage example](#usage-example)
 5. [Notes on errors](#notes-on-errors)
+6. [Credits](#credits)
 
 ## Required dependencies <a name="required-dependencies"></a>
 - FFmpeg
@@ -25,7 +26,7 @@ For example in Ubuntu and the rest of Debian based systems.
 1. Download the script  
 
 ```bash
-wget https://raw.githubusercontent.com/diegosanchezp/mp3split/master/mp3split.sh -O ~/.local/bin/mp3split
+wget https://raw.githubusercontent.com/diegosanchezp/mp3split/master/mp3split.sh -O ~/.local/bin/mp3split && chmod 755 ~/.local/bin/mp3split
 ```
 
 This will put the shell script in the folder `~/.local/bin/` and can be accessed via terminal as a binary file.
@@ -83,7 +84,7 @@ Run the command
 mp3split testsong.mp3 tracklist.txt
 ```
 
-Will output the current information to `stdout`
+It will output information about the created split files to `stdout`
 
 ```
 === Begin to create mp3 split files ===
@@ -103,7 +104,7 @@ Processed 43:22 to 0:45:55.680000; hello meteor - at last light.mp3
 
 And the splitted files 
 
-```bash
+```
 3,1M	Alison - space echo.mp3
 2,4M	bl00dwave - Encounters.mp3
 5,8M	Emil Rottmayer - T.I.M.E ( Part 2 ).mp3
@@ -124,3 +125,7 @@ De Lorra/Augustus Wright - Let Us.mp3: No such file or directory
 ```
 
 For this case the script wont stop it's execution and it will continue to process the other splits.
+
+## Credits <a name="credits"></a>
+
+I took as inspiration [Lukesmith booksplit script](https://github.com/LukeSmithxyz/voidrice/blob/master/.local/bin/booksplit)
