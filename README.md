@@ -3,6 +3,7 @@
 <p align="center">
   <img src="https://diegosanchezp.github.io/blog/mp3split/mp3splitBanner.png">
 </p>
+
 The idea of this program is to take an mp3 file e.g a music 'mix' downloaded from youtube or another site and split it with a timestamps file found on youtube or another site, you might want to adjust it to the [format](#documentation).
 
 ## Table of Contents
