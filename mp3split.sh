@@ -64,16 +64,19 @@ shift $((OPTIND-1))
 # Validate if ffmpeg is installed
 ! command -v ffmpeg &> /dev/null && echo "ffmpeg is not installed" && exit 1
 
-ext="mp3"
+: ${ext="mp3"}
 inputaudio="$1"
 tracklist="$2"
+
+# Copy output extension from input if environment ext=""
+ext="${ext:-"${inputaudio##*.}"}"
 
 # Get total duration of inputaudio
 audioduration="$(ffprobe -i "$inputaudio" -show_entries format=duration -v quiet -of csv='p=0' -sexagesimal)"
 
 countr=0
 
-printf "\n=== Begin to create mp3 split files ===\n"
+printf "\n=== Begin to create $ext split files ===\n"
 
 # Read from tracklist line by line
 while read -r tracklistline;
