@@ -1,7 +1,7 @@
 <h1 align="center">MP3split</h1>
 <p align="center">A Shell script for splitting or slicing large mp3 audio files.</p>
 <p align="center">
-  <img src="https://diegosanchezp.github.io/blog/mp3split/mp3splitBanner.png">
+  <img src="mp3splitBannerDevto.png">
 </p>
 
 The idea of this program is to take an mp3 file e.g a music 'mix' downloaded from youtube or another site and split it with a timestamps file found on youtube or another site, you might want to adjust it to the [format](#documentation).
