@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ###############################################################
-# Functions definition 
+# Functions definition
 ###############################################################
 
 get_time_stamp () {
@@ -11,19 +11,19 @@ get_time_stamp () {
 
 extract_track (){
   # Set these global variables
-  start="$(get_time_stamp ${trackpair[0]})" 
-  end="$(get_time_stamp ${trackpair[1]})" 
+  start="$(get_time_stamp ${trackpair[0]})"
+  end="$(get_time_stamp ${trackpair[1]})"
   tracktitle="$(echo "${trackpair[0]}" | cut -d' ' -f 2-)"
-  
+
   # If track is the last to process
   if [ "$1" = "last" ]; then
-    start="${end}" 
+    start="${end}"
     end="${audioduration}"
     tracktitle="$(echo "${trackpair[1]}" | cut -d' ' -f 2-)"
   fi
-  
+
   outfile="$tracktitle.$ext"
-  
+
   # Begin splitting files with ffmpeg
   [ ! "$simulate" = true ] && ffmpeg -nostdin -y -loglevel error -i "$inputaudio" -ss "$start" -to "$end" -acodec copy "$outfile"
 
@@ -34,28 +34,30 @@ extract_track (){
 # Script arguments
 ###############################################################
 
-usage() { 
+usage() {
 echo "Usage:
   mp3split [OPTIONS] inputaudio tracklist
-Options: 
+Options:
   -s: do a simulation without writing anything to disk
   -h: print this help
+  -e extension: set output extension, if extension is equal to \"\" keep extension of input file
+  The script will output all the splitted files in the
+  current/working directory." && exit 1 ;
+}
 
-  The script will output all the splitted files in the 
-  current/working directory." && exit 1 ;}
-
-while getopts "hs" o; do 
+while getopts "hse:" o; do
   case "${o}" in
     s) simulate=true ;;
     h) usage ;;
+    e) ext="$OPTARG" ;;
     *) printf "Invalid option: -%s\\n" "$OPTARG" && usage ;;
-  esac 
+  esac
 done
 
 shift $((OPTIND-1))
 
 ###############################################################
-# Main body 
+# Main body
 ###############################################################
 
 # Check for initial errors
@@ -68,7 +70,7 @@ shift $((OPTIND-1))
 inputaudio="$1"
 tracklist="$2"
 
-# Copy output extension from input if environment ext=""
+# Copy output extension from input if argument -e is equal to ""
 ext="${ext:-"${inputaudio##*.}"}"
 
 # Get total duration of inputaudio
@@ -81,18 +83,18 @@ printf "\n=== Begin to create $ext split files ===\n"
 # Read from tracklist line by line
 while read -r tracklistline;
 do
-  if [ "$countr" -ge 2 ]; then 
+  if [ "$countr" -ge 2 ]; then
     countr=1
     extract_track
     trackpair[0]="${trackpair[1]}"
   fi
-  
+
   # Assign a line to the array
   trackpair["$countr"]="$tracklistline"
-  
+
   # Increment countr
   countr="$((countr+1))"
-  
+
 done < "$tracklist"
 
 # Process the last two tracks
