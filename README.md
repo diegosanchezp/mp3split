@@ -26,7 +26,7 @@ For example in Ubuntu and the rest of Debian based systems.
 
 ## Installation instructions <a name="installation-instructions"></a>
 
-1. Download the script  
+1. Download the script
 
 ```bash
 wget https://raw.githubusercontent.com/diegosanchezp/mp3split/master/mp3split.sh -O ~/.local/bin/mp3split && chmod 755 ~/.local/bin/mp3split
@@ -39,13 +39,18 @@ Also the command above can be executed to update the script.
 You must have the folder `~/.local/bin/` added to your `$PATH` variable, if you don't want to, install it to another folder.
 
 ## Documentation <a name="documentation"></a>
-Usage:
-	mp3split [OPTIONS] inputaudio tracklist
-Options: 
-	-s: do a simulation without writing anything to disk
-  -h: print this help
 
-The script will output all the splitted files in the current/working directory.   
+```sh
+Usage:
+  mp3split [OPTIONS] inputaudio tracklist
+Options:
+  -s: do a simulation without writing anything to disk.
+  -h: print this help.
+  -e extension: set output extension, if extension is equal to "" keep extension of input file.
+  The script will output all the splitted files in the
+  current/working directory.
+```
+The script will output all the splitted files in the current/working directory.
 
 The tracklist format is like those found on youtube comments of music videos.
 
@@ -71,18 +76,18 @@ tracklist.txt
 ```
 0:00 Xtract - Audiotool Day 2016
 3:55 Alison - space echo
-7:25 Volt Age - Volt's Theme 
-13:12 Lucy in Disguise - Southbound 
+7:25 Volt Age - Volt's Theme
+13:12 Lucy in Disguise - Southbound
 18:05 Lucy in Disguise - Echoes In Time
 23:15 HOME - Flood
-26:53 De Lorra/Augustus Wright - Let Us 
+26:53 De Lorra/Augustus Wright - Let Us
 31:09 bl00dwave - Encounters
 33:51 Emil Rottmayer - T.I.M.E ( Part 2 )
 40:12 oDDling - Early Bird
 43:22 hello meteor - at last light
 ```
 
-Run the command 
+Run the command
 ```bash
 mp3split testsong.mp3 tracklist.txt
 ```
@@ -105,7 +110,7 @@ Processed 40:12 to 43:22; oDDling - Early Bird.mp3
 Processed 43:22 to 0:45:55.680000; hello meteor - at last light.mp3
 ```
 
-And the splitted files 
+And the splitted files
 
 ```
 3,1M	Alison - space echo.mp3
@@ -120,6 +125,21 @@ And the splitted files
 3,5M	Xtract - Audiotool Day 2016.mp3
 ```
 
+Example with argument -e
+
+```sh
+# keep extension of input file
+mp3split.sh -e "" input.ogg tracklist.txt
+# creates .ogg
+
+# force specific output extension
+mp3split.sh -e "wav" input.mp3 tracklist.txt
+# creates .wav
+
+# default extension ".mp3" is preserved
+mp3split.sh input.mp3 tracklist.txt
+# creates .mp3
+```
 ## Notes on errors <a name="notes-on-errors"></a>
 Be careful with the filenames with a slash '/' this might declare the filename as directory followed by a name as you can see in the example below there it was an error thrown by ffmpeg.
 
